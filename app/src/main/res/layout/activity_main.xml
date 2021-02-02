@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+<<<<<<< HEAD
     <ImageView
         android:layout_marginTop="56dp"
         android:layout_width="match_parent"
@@ -22,6 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+=======
+>>>>>>> 6de0c2a9b1426d46c726e583697e681ea9ae8780
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,6 +39,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+<<<<<<< HEAD
 
 
     <include
@@ -43,6 +47,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="235dp" />
+=======
+    <include layout="@layout/content_main" />
+>>>>>>> 6de0c2a9b1426d46c726e583697e681ea9ae8780
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

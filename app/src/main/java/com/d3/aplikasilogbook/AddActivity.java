@@ -69,12 +69,21 @@ public class AddActivity extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD
 //        imageView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                CropImage.startPickImageActivity(AddActivity.this);
 //            }
 //        });
+=======
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CropImage.startPickImageActivity(AddActivity.this);
+            }
+        });
+>>>>>>> 6de0c2a9b1426d46c726e583697e681ea9ae8780
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

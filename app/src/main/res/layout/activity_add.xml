@@ -23,11 +23,14 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+<<<<<<< HEAD
     <ImageView
         android:layout_marginTop="56dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background"/>
+=======
+>>>>>>> 6de0c2a9b1426d46c726e583697e681ea9ae8780
 
     <ScrollView
         android:layout_width="match_parent"
@@ -40,6 +43,7 @@
             android:layout_margin="10dp"
             android:orientation="vertical">
 
+<<<<<<< HEAD
             <TextView
                 android:layout_marginTop="130dp"
                 android:layout_marginStart="95dp"
@@ -50,6 +54,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
+=======
+>>>>>>> 6de0c2a9b1426d46c726e583697e681ea9ae8780
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -59,65 +65,97 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Tanggal"
+<<<<<<< HEAD
                 android:textStyle="bold"
                 android:textColor="#000"
                 android:textSize="18dp"/>
+=======
+                android:textStyle="bold" />
+>>>>>>> 6de0c2a9b1426d46c726e583697e681ea9ae8780
 
             <EditText
                 android:id="@+id/txTanggal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+<<<<<<< HEAD
                 android:inputType="text"
                 android:textColor="#000"
                 android:textSize="18dp"/>
+=======
+                android:inputType="text" />
+>>>>>>> 6de0c2a9b1426d46c726e583697e681ea9ae8780
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Kegiatan"
+<<<<<<< HEAD
                 android:textStyle="bold"
                 android:textColor="#000"
                 android:textSize="18dp"/>
+=======
+                android:textStyle="bold" />
+>>>>>>> 6de0c2a9b1426d46c726e583697e681ea9ae8780
 
             <EditText
                 android:id="@+id/txKegiatan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+<<<<<<< HEAD
                 android:inputType="textCapSentences"
                 android:textColor="#000"
                 android:textSize="18dp"/>
+=======
+                android:inputType="textCapSentences" />
+>>>>>>> 6de0c2a9b1426d46c726e583697e681ea9ae8780
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Keterangan"
+<<<<<<< HEAD
                 android:textStyle="bold"
                 android:textColor="#000"
                 android:textSize="18dp"/>
+=======
+                android:textStyle="bold" />
+>>>>>>> 6de0c2a9b1426d46c726e583697e681ea9ae8780
 
             <EditText
                 android:id="@+id/txKeterangan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+<<<<<<< HEAD
                 android:inputType="textCapSentences"
                 android:textColor="#000"
                 android:textSize="18dp"/>
+=======
+                android:inputType="textCapSentences" />
+>>>>>>> 6de0c2a9b1426d46c726e583697e681ea9ae8780
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Lokasi"
+<<<<<<< HEAD
                 android:textStyle="bold"
                 android:textColor="#000"
                 android:textSize="18dp"/>
+=======
+                android:textStyle="bold" />
+>>>>>>> 6de0c2a9b1426d46c726e583697e681ea9ae8780
 
             <EditText
                 android:id="@+id/txLokasi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+<<<<<<< HEAD
                 android:inputType="textCapSentences"
                 android:textColor="#000"
                 android:textSize="18dp"/>
+=======
+                android:inputType="textCapSentences" />
+>>>>>>> 6de0c2a9b1426d46c726e583697e681ea9ae8780
 
             <TextView
                 android:layout_width="match_parent"
