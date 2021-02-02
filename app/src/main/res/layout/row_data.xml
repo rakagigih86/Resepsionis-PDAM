@@ -28,10 +28,7 @@
             android:text="Kegiatan"
             android:textSize="18dp"
             android:textStyle="bold"
-<<<<<<< HEAD
             android:textColor="#000"
-=======
->>>>>>> 6de0c2a9b1426d46c726e583697e681ea9ae8780
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
     </LinearLayout>

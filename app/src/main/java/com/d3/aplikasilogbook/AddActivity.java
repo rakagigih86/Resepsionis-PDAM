@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -47,6 +48,7 @@ public class AddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -69,21 +71,12 @@ public class AddActivity extends AppCompatActivity {
             }
         });
 
-<<<<<<< HEAD
 //        imageView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                CropImage.startPickImageActivity(AddActivity.this);
 //            }
 //        });
-=======
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CropImage.startPickImageActivity(AddActivity.this);
-            }
-        });
->>>>>>> 6de0c2a9b1426d46c726e583697e681ea9ae8780
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

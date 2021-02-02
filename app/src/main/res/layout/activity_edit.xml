@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".EditActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:isScrollContainer="false">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -23,39 +24,31 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-<<<<<<< HEAD
-    <ImageView
-        android:layout_marginTop="56dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background"/>
-=======
->>>>>>> 6de0c2a9b1426d46c726e583697e681ea9ae8780
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/background"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="vertical">
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="vertical"
+            android:isScrollContainer="false">
 
-<<<<<<< HEAD
             <TextView
                 android:layout_marginTop="130dp"
-                android:layout_marginStart="110dp"
                 android:text="Edit Kegiatan"
+                android:textAlignment="center"
                 android:textColor="#000"
                 android:textStyle="bold"
-                android:textSize="25dp"
-                android:layout_width="wrap_content"
+                android:textSize="23dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-=======
->>>>>>> 6de0c2a9b1426d46c726e583697e681ea9ae8780
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -65,110 +58,74 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Tanggal"
-<<<<<<< HEAD
                 android:textColor="#000"
                 android:textStyle="bold"
                 android:textSize="18dp"/>
-=======
-                android:textStyle="bold" />
->>>>>>> 6de0c2a9b1426d46c726e583697e681ea9ae8780
 
             <EditText
                 android:id="@+id/txEditTanggal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-<<<<<<< HEAD
                 android:inputType="text"
                 android:textColor="#000"
                 android:textSize="18dp"/>
-=======
-                android:inputType="text" />
->>>>>>> 6de0c2a9b1426d46c726e583697e681ea9ae8780
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Kegiatan"
-<<<<<<< HEAD
                 android:textStyle="bold"
                 android:textColor="#000"
                 android:textSize="18dp"/>
-=======
-                android:textStyle="bold" />
->>>>>>> 6de0c2a9b1426d46c726e583697e681ea9ae8780
 
             <EditText
                 android:id="@+id/txEditKegiatan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-<<<<<<< HEAD
                 android:inputType="textCapSentences"
                 android:textColor="#000"
                 android:textSize="18dp"/>
-=======
-                android:inputType="textCapSentences" />
->>>>>>> 6de0c2a9b1426d46c726e583697e681ea9ae8780
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Keterangan"
-<<<<<<< HEAD
                 android:textStyle="bold"
                 android:textColor="#000"
                 android:textSize="18dp"/>
-=======
-                android:textStyle="bold" />
->>>>>>> 6de0c2a9b1426d46c726e583697e681ea9ae8780
 
             <EditText
                 android:id="@+id/txEditKeterangan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-<<<<<<< HEAD
                 android:inputType="textCapSentences"
                 android:textColor="#000"
                 android:textSize="18dp"/>
-=======
-                android:inputType="textCapSentences" />
->>>>>>> 6de0c2a9b1426d46c726e583697e681ea9ae8780
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Lokasi"
-<<<<<<< HEAD
                 android:textStyle="bold"
                 android:textColor="#000"
                 android:textSize="18dp"/>
-=======
-                android:textStyle="bold" />
->>>>>>> 6de0c2a9b1426d46c726e583697e681ea9ae8780
 
             <EditText
                 android:id="@+id/txEditLokasi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-<<<<<<< HEAD
                 android:inputType="textCapSentences"
                 android:textColor="#000"
                 android:textSize="18dp"/>
-=======
-                android:inputType="textCapSentences" />
->>>>>>> 6de0c2a9b1426d46c726e583697e681ea9ae8780
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Masukkan Bukti Foto"
                 android:layout_marginBottom="15dp"
-<<<<<<< HEAD
                 android:textStyle="bold"
                 android:textColor="#000"
                 android:textSize="18dp"/>
-=======
-                android:textStyle="bold" />
->>>>>>> 6de0c2a9b1426d46c726e583697e681ea9ae8780
 
             <ImageView
                 android:id="@+id/image_bukti"
