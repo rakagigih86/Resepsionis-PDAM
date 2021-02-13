@@ -65,11 +65,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        if (id == R.id.masterKegiatan) {
+            Intent intent = new Intent(this, MasterKegiatanActivity.class);
+            this.startActivity(intent);
+        }
+        if (id == R.id.masterLokasi) {
+            Intent intent = new Intent(this, MasterLokasiActivity.class);
+            this.startActivity(intent);
+        }
         if (id == R.id.about) {
             Intent intent = new Intent(this, AboutUsActivity.class);
             this.startActivity(intent);
         }
-
         return super.onOptionsItemSelected(item);
     }
 

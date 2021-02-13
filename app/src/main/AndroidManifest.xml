@@ -10,7 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:windowSoftInputMode="stateHidden|adjustPan">
-        <activity android:name=".AboutUsActivity"></activity>
+        <activity android:name=".MasterLokasiActivity"></activity>
+        <activity android:name=".MasterKegiatanActivity" />
+        <activity android:name=".AboutUsActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

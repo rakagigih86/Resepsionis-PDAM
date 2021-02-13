@@ -79,6 +79,19 @@
                 android:textColor="#000"
                 android:textSize="18dp"/>
 
+            <Spinner
+                android:id="@+id/spinnerKegiatan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kegiatan"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:textSize="18dp"/>
+
             <EditText
                 android:id="@+id/txKegiatan"
                 android:layout_width="match_parent"

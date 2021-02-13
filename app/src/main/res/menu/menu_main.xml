@@ -3,8 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.d3.aplikasilogbook.MainActivity">
     <item
+        android:id="@+id/masterKegiatan"
+        android:orderInCategory="1"
+        android:title="Tambah Kegiatan Baru"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/masterLokasi"
+        android:orderInCategory="1"
+        android:title="Tambah Lokasi Baru"
+        app:showAsAction="never"/>
+    <item
         android:id="@+id/about"
-        android:orderInCategory="100"
+        android:orderInCategory="2"
         android:title="@string/action_settings"
         app:showAsAction="never"/>
 </menu>
