@@ -14,6 +14,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public static final String row_id = "_id";
     public static final String row_tanggal = "Tanggal";
+    public static final String row_waktu = "Waktu";
     public static final String row_kegiatan = "Kegiatan";
     public static final String row_keterangan = "Keterangan";
     public static final String row_lokasi = "Lokasi";
@@ -31,7 +32,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query1 = "CREATE TABLE " + table_name1 + " ( " + row_id + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + row_tanggal + " TEXT, " + row_kegiatan + " TEXT, " + row_keterangan + " TEXT, "
+                + row_tanggal + " TEXT, " + row_waktu + " TEXT, " + row_kegiatan + " TEXT, " + row_keterangan + " TEXT, "
                 + row_lokasi + " TEXT, " + row_gambar + " TEXT)" ;
         db.execSQL(query1);
 

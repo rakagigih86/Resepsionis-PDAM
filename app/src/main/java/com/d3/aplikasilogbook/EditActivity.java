@@ -12,6 +12,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,6 +28,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -38,7 +40,7 @@ import java.util.Locale;
 public class EditActivity extends AppCompatActivity {
 
     DBHelper helper;
-    EditText TxTanggal, TxKegiatan, TxKeterangan, TxLokasi;
+    EditText TxTanggal, TxWaktu, TxKegiatan, TxKeterangan, TxLokasi;
     long id;
     DatePickerDialog datePickerDialog;
     SimpleDateFormat dateFormatter;
@@ -58,6 +60,7 @@ public class EditActivity extends AppCompatActivity {
         id = getIntent().getLongExtra(DBHelper.row_id, 0);
 
         TxTanggal = (EditText)findViewById(R.id.txEditTanggal);
+        TxWaktu = (EditText)findViewById(R.id.txEditWaktu);
         TxKegiatan = (EditText)findViewById(R.id.txEditKegiatan);
         TxKeterangan = (EditText)findViewById(R.id.txEditKeterangan);
         TxLokasi = (EditText)findViewById(R.id.txEditLokasi);
@@ -69,6 +72,25 @@ public class EditActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showDateDialog();
+            }
+        });
+
+        //waktu
+        TxWaktu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrenTime = Calendar.getInstance();
+                int hour = mcurrenTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrenTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(EditActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        TxWaktu.setText(hourOfDay + ":" + minute);
+                    }
+                }, hour, minute, true);
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
             }
         });
 
@@ -100,12 +122,14 @@ public class EditActivity extends AppCompatActivity {
         Cursor cursor = helper.oneData(id);
         if(cursor.moveToFirst()){
             String tanggal = cursor.getString(cursor.getColumnIndex(DBHelper.row_tanggal));
+            String waktu = cursor.getString(cursor.getColumnIndex(DBHelper.row_waktu));
             String kegiatan = cursor.getString(cursor.getColumnIndex(DBHelper.row_kegiatan));
             String keterangan = cursor.getString(cursor.getColumnIndex(DBHelper.row_keterangan));
             String lokasi = cursor.getString(cursor.getColumnIndex(DBHelper.row_lokasi));
             String gambar = cursor.getString(cursor.getColumnIndex(DBHelper.row_gambar));
 
             TxTanggal.setText(tanggal);
+            TxWaktu.setText(waktu);
             TxKegiatan.setText(kegiatan);
             TxKeterangan.setText(keterangan);
             TxLokasi.setText(lokasi);
@@ -178,12 +202,12 @@ public class EditActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE
-            && resultCode == Activity.RESULT_OK){
+                && resultCode == Activity.RESULT_OK){
             Uri imageuri = CropImage.getPickImageResultUri(this, data);
             if(CropImage.isReadExternalStoragePermissionsRequired(this, imageuri)){
                 uri = imageuri;
                 requestPermissions(new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}
-                , 0);
+                        , 0);
             } else {
                 startCrop(imageuri);
             }

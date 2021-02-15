@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Aplikasi LogBook</string>
+    <string name="app_name">LogBook PDAM</string>
     <string name="action_settings">About Us</string>
     <string name="title_activity_edit">EditActivity</string>
     <!-- Strings used for fragments for navigation -->

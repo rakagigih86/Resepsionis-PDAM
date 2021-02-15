@@ -11,6 +11,7 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -28,6 +29,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -39,7 +41,7 @@ import java.util.Locale;
 public class AddActivity extends AppCompatActivity {
 
     DBHelper helper;
-    EditText TxTanggal, TxKegiatan, TxKeterangan, TxLokasi;
+    EditText TxTanggal, TxtWaktu, TxKegiatan, TxKeterangan, TxLokasi;
     long id;
     DatePickerDialog datePickerDialog;
     SimpleDateFormat dateFormatter;
@@ -60,6 +62,7 @@ public class AddActivity extends AppCompatActivity {
         id = getIntent().getLongExtra(DBHelper.row_id, 0);
 
         TxTanggal = (EditText)findViewById(R.id.txTanggal);
+        TxtWaktu = (EditText)findViewById(R.id.txWaktu);
         TxKegiatan = (EditText)findViewById(R.id.txKegiatan);
         TxKeterangan = (EditText)findViewById(R.id.txKeterangan);
         TxLokasi = (EditText)findViewById(R.id.txLokasi);
@@ -71,6 +74,25 @@ public class AddActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showDateDialog();
+            }
+        });
+
+        //waktu
+        TxtWaktu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrenTime = Calendar.getInstance();
+                int hour = mcurrenTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrenTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(AddActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        TxtWaktu.setText(hourOfDay + ":" + minute);
+                    }
+                }, hour, minute, true);
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
             }
         });
 
@@ -108,12 +130,14 @@ public class AddActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.save_add:
                 String tanggal = TxTanggal.getText().toString().trim();
+                String waktu = TxtWaktu.getText().toString().trim();
                 String kegiatan = TxKegiatan.getText().toString().trim();
                 String keterangan = TxKeterangan.getText().toString().trim();
                 String lokasi = TxLokasi.getText().toString().trim();
 
                 ContentValues values = new ContentValues();
                 values.put(DBHelper.row_tanggal, tanggal);
+                values.put(DBHelper.row_waktu, waktu);
                 values.put(DBHelper.row_kegiatan, kegiatan);
                 values.put(DBHelper.row_keterangan, keterangan);
                 values.put(DBHelper.row_lokasi, lokasi);

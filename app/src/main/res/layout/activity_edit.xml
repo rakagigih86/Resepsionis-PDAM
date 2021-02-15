@@ -73,6 +73,22 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="Waktu"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="18dp"/>
+
+            <EditText
+                android:id="@+id/txEditWaktu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textColor="#000"
+                android:textSize="18dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="Kegiatan"
                 android:textStyle="bold"
                 android:textColor="#000"

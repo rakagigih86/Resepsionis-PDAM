@@ -3,6 +3,7 @@ package com.d3.aplikasilogbook;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +30,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     DBHelper helper;
     LayoutInflater inflater;
     View dialogView;
-    TextView Tv_tanggal, Tv_kegiatan, Tv_keterangan, Tv_lokasi, Tv_gambar;
+    TextView Tv_tanggal, Tv_waktu, Tv_kegiatan, Tv_keterangan, Tv_lokasi;
+    ImageView Tv_gambar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,16 +112,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         viewData.setTitle("Lihat Data");
 
                         Tv_tanggal = (TextView)dialogView.findViewById(R.id.tv_Tanggal);
+                        Tv_waktu = (TextView)dialogView.findViewById(R.id.tv_Waktu);
                         Tv_kegiatan = (TextView)dialogView.findViewById(R.id.tv_Kegiatan);
                         Tv_keterangan = (TextView)dialogView.findViewById(R.id.tv_Keterangan);
                         Tv_lokasi = (TextView)dialogView.findViewById(R.id.tv_Lokasi);
-                        Tv_gambar = (TextView)dialogView.findViewById(R.id.tv_Gambar);
+                        Tv_gambar = (ImageView)dialogView.findViewById(R.id.tv_Gambar);
 
                         Tv_tanggal.setText("Tanggal: " + cur.getString(cur.getColumnIndex(DBHelper.row_tanggal)));
+                        Tv_waktu.setText("Waktu: " + cur.getString(cur.getColumnIndex(DBHelper.row_waktu)));
                         Tv_kegiatan.setText("Kegiatan: " + cur.getString(cur.getColumnIndex(DBHelper.row_kegiatan)));
                         Tv_keterangan.setText("Keterangan: " + cur.getString(cur.getColumnIndex(DBHelper.row_keterangan)));
                         Tv_lokasi.setText("Lokasi: " + cur.getString(cur.getColumnIndex(DBHelper.row_lokasi)));
-                        Tv_lokasi.setText("Bukti Foto: " + cur.getString(cur.getColumnIndex(DBHelper.row_gambar)));
+
+                        Tv_gambar.setImageURI(Uri.parse(cur.getString(cur.getColumnIndex(DBHelper.row_gambar))));
 
                         viewData.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override

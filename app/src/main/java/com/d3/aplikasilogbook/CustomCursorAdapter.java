@@ -26,6 +26,8 @@ public class CustomCursorAdapter extends CursorAdapter {
         MyHolder holder = new MyHolder();
         holder.ListID = (TextView)v.findViewById(R.id.list_id);
         holder.ListNama = (TextView)v.findViewById(R.id.list_nama);
+        holder.ListTanggal = (TextView)v.findViewById(R.id.list_tanggal);
+        holder.ListWaktu = (TextView)v.findViewById(R.id.list_waktu);
         v.setTag(holder);
         return v;
     }
@@ -36,11 +38,15 @@ public class CustomCursorAdapter extends CursorAdapter {
 
         holder.ListID.setText(cursor.getString(cursor.getColumnIndex(DBHelper.row_id)));
         holder.ListNama.setText(cursor.getString(cursor.getColumnIndex(DBHelper.row_kegiatan)));
+        holder.ListTanggal.setText(cursor.getString(cursor.getColumnIndex(DBHelper.row_tanggal)));
+        holder.ListWaktu.setText(cursor.getString(cursor.getColumnIndex(DBHelper.row_waktu)));
     }
 
     class MyHolder{
         TextView ListID;
         TextView ListNama;
+        TextView ListTanggal;
+        TextView ListWaktu;
     }
 
 
