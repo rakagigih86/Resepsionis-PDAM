@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DBHelper extends SQLiteOpenHelper {
     public static final String database_name = "db_logbook";
     public static final String table_name1 = "tabel_umum";
@@ -56,6 +59,27 @@ public class DBHelper extends SQLiteOpenHelper {
     public Cursor allData(){
         Cursor cur = db.rawQuery("SELECT * FROM " + table_name1, null);
         return cur;
+    }
+
+    public List<String> getEvent(){
+        Cursor cur = db.rawQuery("SELECT * FROM " + table_name2, null);
+        List<String> lists = new ArrayList<>();
+        if (cur.moveToFirst()){
+            do{
+                lists.add(cur.getString(1));
+            }while (cur.moveToNext());
+        }
+        return lists;
+    }
+    public List<String> getLocation(){
+        Cursor cur = db.rawQuery("SELECT * FROM " + table_name3, null);
+        List<String> lists = new ArrayList<>();
+        if (cur.moveToFirst()){
+            do{
+                lists.add(cur.getString(1));
+            }while (cur.moveToNext());
+        }
+        return lists;
     }
 
     public Cursor oneData(Long id){

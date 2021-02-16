@@ -1,3 +1,4 @@
+
 package com.d3.aplikasilogbook;
 
 import androidx.annotation.NonNull;
@@ -25,10 +26,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -36,12 +39,14 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class AddActivity extends AppCompatActivity {
 
     DBHelper helper;
-    EditText TxTanggal, TxtWaktu, TxKegiatan, TxKeterangan, TxLokasi;
+    EditText TxTanggal, TxtWaktu, TxKeterangan;
+    Spinner spinnerKegiatan, spinnerLokasi;
     long id;
     DatePickerDialog datePickerDialog;
     SimpleDateFormat dateFormatter;
@@ -63,19 +68,13 @@ public class AddActivity extends AppCompatActivity {
 
         TxTanggal = (EditText)findViewById(R.id.txTanggal);
         TxtWaktu = (EditText)findViewById(R.id.txWaktu);
-        TxKegiatan = (EditText)findViewById(R.id.txKegiatan);
         TxKeterangan = (EditText)findViewById(R.id.txKeterangan);
-        TxLokasi = (EditText)findViewById(R.id.txLokasi);
         imageView = (ImageView)findViewById(R.id.image_bukti);
 
-        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        spinnerKegiatan = (Spinner)findViewById(R.id.spinnerKegiatan);
+        spinnerLokasi = (Spinner)findViewById(R.id.spinnerLokasi);
 
-        TxTanggal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDateDialog();
-            }
-        });
+        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
         //waktu
         TxtWaktu.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +95,30 @@ public class AddActivity extends AppCompatActivity {
             }
         });
 
+        DBHelper dbHelper = new DBHelper(this);
+        List<String> eventLabels = dbHelper.getEvent();
+        final ArrayAdapter<String> adapterLabels = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                eventLabels);
+        adapterLabels.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerKegiatan.setAdapter(adapterLabels);
+
+        List<String> locationsLabel = dbHelper.getLocation();
+        final ArrayAdapter<String> adapterLocations = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                locationsLabel
+        );
+        adapterLocations.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerLokasi.setAdapter(adapterLocations);
+
+        TxTanggal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDateDialog();
+            }
+        });
 //        imageView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -103,7 +126,6 @@ public class AddActivity extends AppCompatActivity {
 //            }
 //        });
     }
-
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void showDateDialog() {
         Calendar calendar = Calendar.getInstance();
@@ -131,9 +153,9 @@ public class AddActivity extends AppCompatActivity {
             case R.id.save_add:
                 String tanggal = TxTanggal.getText().toString().trim();
                 String waktu = TxtWaktu.getText().toString().trim();
-                String kegiatan = TxKegiatan.getText().toString().trim();
+                String kegiatan = spinnerKegiatan.getSelectedItem().toString().trim();
                 String keterangan = TxKeterangan.getText().toString().trim();
-                String lokasi = TxLokasi.getText().toString().trim();
+                String lokasi = spinnerLokasi.getSelectedItem().toString().trim();
 
                 ContentValues values = new ContentValues();
                 values.put(DBHelper.row_tanggal, tanggal);
