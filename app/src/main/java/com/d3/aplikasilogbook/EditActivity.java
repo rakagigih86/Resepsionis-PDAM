@@ -25,9 +25,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -35,12 +38,14 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class EditActivity extends AppCompatActivity {
 
     DBHelper helper;
-    EditText TxTanggal, TxWaktu, TxKegiatan, TxKeterangan, TxLokasi;
+    EditText TxTanggal, TxWaktu;
+    Spinner spinnerEditKegiatan, spinnerEditLokasi, spinnerEditKeterangan;
     long id;
     DatePickerDialog datePickerDialog;
     SimpleDateFormat dateFormatter;
@@ -52,6 +57,7 @@ public class EditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -61,10 +67,11 @@ public class EditActivity extends AppCompatActivity {
 
         TxTanggal = (EditText)findViewById(R.id.txEditTanggal);
         TxWaktu = (EditText)findViewById(R.id.txEditWaktu);
-        TxKegiatan = (EditText)findViewById(R.id.txEditKegiatan);
-        TxKeterangan = (EditText)findViewById(R.id.txEditKeterangan);
-        TxLokasi = (EditText)findViewById(R.id.txEditLokasi);
+        spinnerEditKeterangan = (Spinner)findViewById(R.id.spinnerEditKeterangan);
         imageView = (ImageView)findViewById(R.id.image_bukti);
+
+        spinnerEditKegiatan = (Spinner)findViewById(R.id.spinnerEditKegiatan);
+        spinnerEditLokasi = (Spinner)findViewById(R.id.spinnerEditLokasi);
 
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
@@ -93,6 +100,24 @@ public class EditActivity extends AppCompatActivity {
                 mTimePicker.show();
             }
         });
+
+        DBHelper dbHelper = new DBHelper(this);
+        List<String> eventLabels = dbHelper.getEvent();
+        final ArrayAdapter<String> adapterLabels = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                eventLabels);
+        adapterLabels.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerEditKegiatan.setAdapter(adapterLabels);
+
+        List<String> locationsLabel = dbHelper.getLocation();
+        final ArrayAdapter<String> adapterLocations = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                locationsLabel
+        );
+        adapterLocations.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerEditLokasi.setAdapter(adapterLocations);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,9 +155,15 @@ public class EditActivity extends AppCompatActivity {
 
             TxTanggal.setText(tanggal);
             TxWaktu.setText(waktu);
-            TxKegiatan.setText(kegiatan);
-            TxKeterangan.setText(keterangan);
-            TxLokasi.setText(lokasi);
+            spinnerEditKegiatan.getOnItemClickListener();
+
+            if (spinnerEditKegiatan.equals("Sudah selesai")){
+                spinnerEditKeterangan.setSelection(0);
+            } else if (spinnerEditKeterangan.equals("Belum selesai")){
+                spinnerEditKeterangan.setSelection(1);
+            }
+
+            spinnerEditKegiatan.getOnItemClickListener();
 
             if(gambar.equals("null")){
                 imageView.setImageResource(R.drawable.ic_add_photo);
@@ -153,9 +184,10 @@ public class EditActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.save_edit:
                 String tanggal = TxTanggal.getText().toString().trim();
-                String kegiatan = TxKegiatan.getText().toString().trim();
-                String keterangan = TxKeterangan.getText().toString().trim();
-                String lokasi = TxLokasi.getText().toString().trim();
+                String waktu = TxWaktu.getText().toString().trim();
+                String kegiatan = spinnerEditKegiatan.getSelectedItem().toString().trim();
+                String keterangan = spinnerEditKeterangan.getSelectedItem().toString().trim();
+                String lokasi = spinnerEditLokasi.getSelectedItem().toString().trim();
 
                 ContentValues values = new ContentValues();
                 values.put(DBHelper.row_tanggal, tanggal);
@@ -164,7 +196,7 @@ public class EditActivity extends AppCompatActivity {
                 values.put(DBHelper.row_lokasi, lokasi);
                 values.put(DBHelper.row_gambar, String.valueOf(uri));
 
-                if (tanggal.equals("") || kegiatan.equals("") || keterangan.equals("") || lokasi.equals("")) {
+                if (tanggal.equals("") || waktu.equals("") || kegiatan.equals("") || keterangan.equals("") || lokasi.equals("")) {
                     Toast.makeText(EditActivity.this, "Data tidak boleh kosong!", Toast.LENGTH_SHORT).show();
                 } else {
                     helper.updateData(values, id);

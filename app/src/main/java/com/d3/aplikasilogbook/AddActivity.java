@@ -45,8 +45,8 @@ import java.util.Locale;
 public class AddActivity extends AppCompatActivity {
 
     DBHelper helper;
-    EditText TxTanggal, TxtWaktu, TxKeterangan;
-    Spinner spinnerKegiatan, spinnerLokasi;
+    EditText TxTanggal, TxtWaktu;
+    Spinner spinnerKegiatan, spinnerLokasi, spinnerKeterangan;
     long id;
     DatePickerDialog datePickerDialog;
     SimpleDateFormat dateFormatter;
@@ -68,7 +68,7 @@ public class AddActivity extends AppCompatActivity {
 
         TxTanggal = (EditText)findViewById(R.id.txTanggal);
         TxtWaktu = (EditText)findViewById(R.id.txWaktu);
-        TxKeterangan = (EditText)findViewById(R.id.txKeterangan);
+        spinnerKeterangan = (Spinner)findViewById(R.id.spinnerKeterangan);
         imageView = (ImageView)findViewById(R.id.image_bukti);
 
         spinnerKegiatan = (Spinner)findViewById(R.id.spinnerKegiatan);
@@ -154,7 +154,7 @@ public class AddActivity extends AppCompatActivity {
                 String tanggal = TxTanggal.getText().toString().trim();
                 String waktu = TxtWaktu.getText().toString().trim();
                 String kegiatan = spinnerKegiatan.getSelectedItem().toString().trim();
-                String keterangan = TxKeterangan.getText().toString().trim();
+                String keterangan = spinnerKeterangan.getSelectedItem().toString().trim();
                 String lokasi = spinnerLokasi.getSelectedItem().toString().trim();
 
                 ContentValues values = new ContentValues();
@@ -165,7 +165,7 @@ public class AddActivity extends AppCompatActivity {
                 values.put(DBHelper.row_lokasi, lokasi);
                 values.put(DBHelper.row_gambar, String.valueOf(uri));
 
-                if (tanggal.equals("") || kegiatan.equals("") || keterangan.equals("") || lokasi.equals("")){
+                if (tanggal.equals("") || waktu.equals("") || kegiatan.equals("") || keterangan.equals("") || lokasi.equals("")){
                     Toast.makeText(AddActivity.this, "Data tidak boleh kosong!", Toast.LENGTH_SHORT).show();
                 }else{
                     helper.insertData(values);
