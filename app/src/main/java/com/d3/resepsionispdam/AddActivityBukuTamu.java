@@ -1,7 +1,6 @@
 
-package com.d3.aplikasilogbook;
+package com.d3.resepsionispdam;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,29 +11,23 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
-import android.widget.TimePicker;
+import android.widget.TextView;
 import android.widget.Toast;
-
+import com.blogspot.atifsoftwares.circularimageview.CircularImageView;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -42,76 +35,51 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class AddActivity extends AppCompatActivity {
+public class AddActivityBukuTamu extends AppCompatActivity {
 
     DBHelper helper;
-    EditText TxTanggal, TxtWaktu;
-    Spinner spinnerKegiatan, spinnerLokasi, spinnerKeterangan;
+    TextView TxNomor;
+    EditText TxTanggal, TxNama, TxKeterangan;
+    Spinner  SpinnerPegawai ;
     long id;
     DatePickerDialog datePickerDialog;
     SimpleDateFormat dateFormatter;
-    ImageView imageView;
+    CircularImageView imageView;
     Uri uri;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add);
+        setContentView(R.layout.activity_add_buku_tamu);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         helper = new DBHelper(this);
 
-        id = getIntent().getLongExtra(DBHelper.row_id, 0);
+        id = getIntent().getLongExtra(DBHelper.row_id, 1);
 
         TxTanggal = (EditText)findViewById(R.id.txTanggal);
-        TxtWaktu = (EditText)findViewById(R.id.txWaktu);
-        spinnerKeterangan = (Spinner)findViewById(R.id.spinnerKeterangan);
-        imageView = (ImageView)findViewById(R.id.image_bukti);
+        TxNomor = (TextView)findViewById(R.id.txNomor);
+        TxKeterangan = (EditText) findViewById(R.id.txKeterangan);
+        imageView = (CircularImageView)findViewById(R.id.image_bukti);
 
-        spinnerKegiatan = (Spinner)findViewById(R.id.spinnerKegiatan);
-        spinnerLokasi = (Spinner)findViewById(R.id.spinnerLokasi);
+        TxNama = (EditText) findViewById(R.id.txNama);
+        SpinnerPegawai = (Spinner)findViewById(R.id.spinnerPegawai);
 
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
-        //waktu
-        TxtWaktu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar mcurrenTime = Calendar.getInstance();
-                int hour = mcurrenTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrenTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(AddActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        TxtWaktu.setText(hourOfDay + ":" + minute);
-                    }
-                }, hour, minute, true);
-                mTimePicker.setTitle("Select Time");
-                mTimePicker.show();
-            }
-        });
 
         DBHelper dbHelper = new DBHelper(this);
-        List<String> eventLabels = dbHelper.getEvent();
-        final ArrayAdapter<String> adapterLabels = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_spinner_item,
-                eventLabels);
-        adapterLabels.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerKegiatan.setAdapter(adapterLabels);
-
-        List<String> locationsLabel = dbHelper.getLocation();
+        List<String> locationsLabel = dbHelper.getPegawai();
         final ArrayAdapter<String> adapterLocations = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_spinner_item,
                 locationsLabel
         );
         adapterLocations.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerLokasi.setAdapter(adapterLocations);
+        SpinnerPegawai.setAdapter(adapterLocations);
 
         TxTanggal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,12 +87,12 @@ public class AddActivity extends AppCompatActivity {
                 showDateDialog();
             }
         });
-//        imageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                CropImage.startPickImageActivity(AddActivity.this);
-//            }
-//        });
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CropImage.startPickImageActivity(AddActivityBukuTamu.this);
+            }
+       });
     }
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void showDateDialog() {
@@ -152,24 +120,22 @@ public class AddActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.save_add:
                 String tanggal = TxTanggal.getText().toString().trim();
-                String waktu = TxtWaktu.getText().toString().trim();
-                String kegiatan = spinnerKegiatan.getSelectedItem().toString().trim();
-                String keterangan = spinnerKeterangan.getSelectedItem().toString().trim();
-                String lokasi = spinnerLokasi.getSelectedItem().toString().trim();
+                String nama = TxNama.getText().toString().trim();
+                String keterangan = TxKeterangan.getText().toString().trim();
+                String pegawai = SpinnerPegawai.getSelectedItem().toString().trim();
 
                 ContentValues values = new ContentValues();
                 values.put(DBHelper.row_tanggal, tanggal);
-                values.put(DBHelper.row_waktu, waktu);
-                values.put(DBHelper.row_kegiatan, kegiatan);
+                values.put(DBHelper.row_nama, nama);
                 values.put(DBHelper.row_keterangan, keterangan);
-                values.put(DBHelper.row_lokasi, lokasi);
+                values.put(DBHelper.row_namapegawai, pegawai);
                 values.put(DBHelper.row_gambar, String.valueOf(uri));
 
-                if (tanggal.equals("") || waktu.equals("") || kegiatan.equals("") || keterangan.equals("") || lokasi.equals("")){
-                    Toast.makeText(AddActivity.this, "Data tidak boleh kosong!", Toast.LENGTH_SHORT).show();
+                if (tanggal.equals("") ||  nama.equals("") || keterangan.equals("") || pegawai.equals("")){
+                    Toast.makeText(AddActivityBukuTamu.this, "Data tidak boleh kosong!", Toast.LENGTH_SHORT).show();
                 }else{
                     helper.insertData(values);
-                    Toast.makeText(AddActivity.this, "Data tersimpan", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddActivityBukuTamu.this, "Data tersimpan", Toast.LENGTH_SHORT).show();
                     finish();
                 }
         }

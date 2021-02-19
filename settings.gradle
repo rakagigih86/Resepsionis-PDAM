@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "Aplikasi LogBook"
+rootProject.name = "Resepsionis-PDAM"

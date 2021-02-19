@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MasterKegiatanActivity"
+    tools:context=".MasterPegawaiActivity"
     android:orientation="vertical"
     android:isScrollContainer="false">
 
@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="130dp"
-                android:text="Tambah Kegiatan Baru"
+                android:text="Tambah Data Pegawai Baru"
                 android:textAlignment="center"
                 android:textColor="#000"
                 android:textSize="23dp"
@@ -58,14 +58,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nama Kegiatan"
-                android:textStyle="bold"
-                android:textColor="#000"
                 android:layout_marginTop="10dp"
-                android:textSize="18dp"/>
+                android:text="Nama Pegawai"
+                android:textColor="#000"
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/txMasterKegiatan"
+                android:id="@+id/txMasterPegawai"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapSentences"

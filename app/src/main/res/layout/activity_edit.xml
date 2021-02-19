@@ -12,7 +12,7 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.AplikasiLogBook.AppBarOverlay"
+        android:theme="@style/Theme.BukuTamu.AppBarOverlay"
         tools:ignore="MissingConstraints">
 
         <androidx.appcompat.widget.Toolbar
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.AplikasiLogBook.PopupOverlay" />
+            app:popupTheme="@style/Theme.BukuTamu.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

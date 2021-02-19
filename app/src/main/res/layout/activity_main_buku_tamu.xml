@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivityBukuTamu">
 
     <ImageView
         android:layout_marginTop="56dp"
@@ -16,7 +16,7 @@
     <TextView
         android:layout_marginTop="220dp"
         android:textAlignment="center"
-        android:text="Daftar Kegiatan"
+        android:text="Daftar Tamu"
         android:textColor="#000"
         android:textStyle="bold"
         android:textSize="23dp"
@@ -38,7 +38,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <include
-        layout="@layout/content_mainlogbook"
+        layout="@layout/content_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="235dp" />

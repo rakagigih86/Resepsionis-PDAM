@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.d3.resepsionispdam.AddActivityBukuTamu">
+    tools:context="com.d3.resepsionispdam.AddActivity">
     <item
-        android:id="@+id/save_add"
+        android:id="@+id/save_addd"
         android:title="SAVE"
         android:orderInCategory="1"
         app:showAsAction="always"

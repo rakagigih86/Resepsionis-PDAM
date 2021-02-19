@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/tampilanlogindanregister"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PilihanActivity">
+
+    <Button
+        android:id="@+id/logbook"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:onClick="keaplikasilogbook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="352dp"
+        android:text="Ke Halaman Logbook"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/bukutamu"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:onClick="keaplikasibukutamu"
+        android:layout_height="wrap_content"
+        android:text="Ke Halaman Buku Tamu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logbook" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

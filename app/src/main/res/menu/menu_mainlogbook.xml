@@ -1,11 +1,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.d3.resepsionispdam.MainActivityBukuTamu">
+    tools:context="com.d3.resepsionispdam.MainActivity">
     <item
-        android:id="@+id/masterPegawai"
+        android:id="@+id/masterKegiatan"
         android:orderInCategory="1"
-        android:title="Tambah Pegawai Baru"
+        android:title="Tambah Kegiatan Baru"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/masterLokasi"
+        android:orderInCategory="1"
+        android:title="Tambah Lokasi Baru"
         app:showAsAction="never"/>
     <item
         android:id="@+id/about"

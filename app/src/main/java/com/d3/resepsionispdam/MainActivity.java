@@ -1,28 +1,25 @@
-package com.d3.aplikasilogbook;
+package com.d3.resepsionispdam;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.view.LayoutInflater;
-import android.view.View;
-
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
@@ -49,14 +46,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         });
 
         helper = new DBHelper(this);
-        listView = (ListView)findViewById(R.id.list_data);
+        listView = (ListView)findViewById(R.id.list_dataa);
         listView.setOnItemClickListener(this);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_mainlogbook, menu);
         return true;
     }
 
@@ -84,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void setListView(){
-        Cursor cursor = helper.allData();
+        Cursor cursor = helper.allDataa();
         CustomCursorAdapter customCursorAdapter = new CustomCursorAdapter(this, cursor, 1);
         listView.setAdapter(customCursorAdapter);
     }
@@ -93,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemClick(AdapterView<?> parent, View view, int position, long x) {
         TextView getId = (TextView)view.findViewById(R.id.list_id);
         final long id = Long.parseLong(getId.getText().toString());
-        final Cursor cur = helper.oneData(id);
+        final Cursor cur = helper.oneDataa(id);
         cur.moveToFirst();
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -107,24 +104,24 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     case 0:
                         final AlertDialog.Builder viewData = new AlertDialog.Builder(MainActivity.this);
                         inflater = getLayoutInflater();
-                        dialogView = inflater.inflate(R.layout.view_data, null);
+                        dialogView = inflater.inflate(R.layout.view_datalogbook, null);
                         viewData.setView(dialogView);
                         viewData.setTitle("Lihat Data");
 
                         Tv_tanggal = (TextView)dialogView.findViewById(R.id.tv_Tanggal);
-                        Tv_waktu = (TextView)dialogView.findViewById(R.id.tv_Waktu);
-                        Tv_kegiatan = (TextView)dialogView.findViewById(R.id.tv_Kegiatan);
-                        Tv_keterangan = (TextView)dialogView.findViewById(R.id.tv_Keterangan);
-                        Tv_lokasi = (TextView)dialogView.findViewById(R.id.tv_Lokasi);
+                        Tv_waktu = (TextView)dialogView.findViewById(R.id.tv_waktu);
+                        Tv_kegiatan = (TextView)dialogView.findViewById(R.id.tv_kegiatan);
+                        Tv_keterangan = (TextView)dialogView.findViewById(R.id.tv_keterangan);
+                        Tv_lokasi = (TextView)dialogView.findViewById(R.id.tv_lokasi);
                         Tv_gambar = (ImageView)dialogView.findViewById(R.id.tv_Gambar);
 
-                        Tv_tanggal.setText("Tanggal: " + cur.getString(cur.getColumnIndex(DBHelper.row_tanggal)));
+                        Tv_tanggal.setText("Tanggal: " + cur.getString(cur.getColumnIndex(DBHelper.row_tanggallogbook)));
                         Tv_waktu.setText("Waktu: " + cur.getString(cur.getColumnIndex(DBHelper.row_waktu)));
                         Tv_kegiatan.setText("Kegiatan: " + cur.getString(cur.getColumnIndex(DBHelper.row_kegiatan)));
-                        Tv_keterangan.setText("Keterangan: " + cur.getString(cur.getColumnIndex(DBHelper.row_keterangan)));
+                        Tv_keterangan.setText("Keterangan: " + cur.getString(cur.getColumnIndex(DBHelper.row_keteranganlogbook)));
                         Tv_lokasi.setText("Lokasi: " + cur.getString(cur.getColumnIndex(DBHelper.row_lokasi)));
 
-                        Tv_gambar.setImageURI(Uri.parse(cur.getString(cur.getColumnIndex(DBHelper.row_gambar))));
+                        Tv_gambar.setImageURI(Uri.parse(cur.getString(cur.getColumnIndex(DBHelper.row_gambarlogbook))));
 
                         viewData.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
@@ -137,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 switch (which){
                     case 1:
                         Intent iddata = new Intent(MainActivity.this, EditActivity.class);
-                        iddata.putExtra(DBHelper.row_id, id);
+                        iddata.putExtra(DBHelper.row_idlogbook, id);
                         startActivity(iddata);
                 }
                 switch (which){
@@ -148,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         builder1.setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                helper.deleteData(id);
+                                helper.deleteDatalogbook(id);
                                 Toast.makeText(MainActivity.this, "Data terhapus", Toast.LENGTH_SHORT).show();
                                 setListView();
                             }
@@ -175,24 +172,4 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     //exit
-    @Override
-    public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setIcon(R.mipmap.ic_launcher)
-                .setTitle(R.string.app_name)
-                .setMessage("Anda yakin ingin keluar?")
-                .setNegativeButton("Iya", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                })
-                .setPositiveButton("Tidak", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                })
-                .show();
-    }
 }

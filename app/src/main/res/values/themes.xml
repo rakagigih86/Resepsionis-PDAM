@@ -11,7 +11,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.AplikasiLogBook.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.BukuTamu.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="Theme.AplikasiLogBook.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.BukuTamu.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

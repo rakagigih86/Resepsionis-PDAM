@@ -18,13 +18,13 @@
         android:layout_margin="2dp"/>
 
     <TextView
-        android:id="@+id/tv_nomor"
+        android:id="@+id/tv_waktu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="2dp"/>
 
     <TextView
-        android:id="@+id/tv_nama"
+        android:id="@+id/tv_kegiatan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="2dp" />
@@ -36,7 +36,7 @@
         android:layout_margin="2dp"/>
 
     <TextView
-        android:id="@+id/tv_pegawai"
+        android:id="@+id/tv_lokasi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="2dp"/>

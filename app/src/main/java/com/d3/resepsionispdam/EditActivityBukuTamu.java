@@ -1,6 +1,5 @@
-package com.d3.aplikasilogbook;
+package com.d3.resepsionispdam;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,7 +11,6 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,18 +20,17 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TimePicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.circularimageview.CircularImageView;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -41,37 +38,38 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class EditActivity extends AppCompatActivity {
+public class EditActivityBukuTamu extends AppCompatActivity {
 
     DBHelper helper;
-    EditText TxTanggal, TxWaktu;
-    Spinner spinnerEditKegiatan, spinnerEditLokasi, spinnerEditKeterangan;
+    EditText TxTanggal, TxNama, TxKeterangan;
+    TextView TxNomor;
+    Spinner spinnerEditPegawai;
     long id;
     DatePickerDialog datePickerDialog;
     SimpleDateFormat dateFormatter;
-    ImageView imageView;
+    CircularImageView imageView;
     Uri uri;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit);
+        setContentView(R.layout.activity_edit_buku_tamu);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         helper = new DBHelper(this);
 
-        id = getIntent().getLongExtra(DBHelper.row_id, 0);
+        id = getIntent().getLongExtra(DBHelper.row_id, 1);
 
         TxTanggal = (EditText)findViewById(R.id.txEditTanggal);
-        TxWaktu = (EditText)findViewById(R.id.txEditWaktu);
-        spinnerEditKeterangan = (Spinner)findViewById(R.id.spinnerEditKeterangan);
-        imageView = (ImageView)findViewById(R.id.image_bukti);
+        TxNomor = (TextView)findViewById(R.id.txNomorEdit);
+        TxKeterangan = (EditText) findViewById(R.id.txKeteranganEdit);
+        imageView = (CircularImageView)findViewById(R.id.image_bukti);
 
-        spinnerEditKegiatan = (Spinner)findViewById(R.id.spinnerEditKegiatan);
-        spinnerEditLokasi = (Spinner)findViewById(R.id.spinnerEditLokasi);
+        TxNama = (EditText) findViewById(R.id.txNamaEdit);
+        spinnerEditPegawai = (Spinner)findViewById(R.id.spinnerPegawaiEdit);
 
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
@@ -82,47 +80,22 @@ public class EditActivity extends AppCompatActivity {
             }
         });
 
-        //waktu
-        TxWaktu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar mcurrenTime = Calendar.getInstance();
-                int hour = mcurrenTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrenTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(EditActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        TxWaktu.setText(hourOfDay + ":" + minute);
-                    }
-                }, hour, minute, true);
-                mTimePicker.setTitle("Select Time");
-                mTimePicker.show();
-            }
-        });
+
 
         DBHelper dbHelper = new DBHelper(this);
-        List<String> eventLabels = dbHelper.getEvent();
-        final ArrayAdapter<String> adapterLabels = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_spinner_item,
-                eventLabels);
-        adapterLabels.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerEditKegiatan.setAdapter(adapterLabels);
-
-        List<String> locationsLabel = dbHelper.getLocation();
+        List<String> locationsLabel = dbHelper.getPegawai();
         final ArrayAdapter<String> adapterLocations = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_spinner_item,
                 locationsLabel
         );
         adapterLocations.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerEditLokasi.setAdapter(adapterLocations);
+        spinnerEditPegawai.setAdapter(adapterLocations);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CropImage.startPickImageActivity(EditActivity.this);
+                CropImage.startPickImageActivity(EditActivityBukuTamu.this);
             }
         });
         getData();
@@ -147,23 +120,14 @@ public class EditActivity extends AppCompatActivity {
         Cursor cursor = helper.oneData(id);
         if(cursor.moveToFirst()){
             String tanggal = cursor.getString(cursor.getColumnIndex(DBHelper.row_tanggal));
-            String waktu = cursor.getString(cursor.getColumnIndex(DBHelper.row_waktu));
-            String kegiatan = cursor.getString(cursor.getColumnIndex(DBHelper.row_kegiatan));
+            String nama = cursor.getString(cursor.getColumnIndex(DBHelper.row_nama));
             String keterangan = cursor.getString(cursor.getColumnIndex(DBHelper.row_keterangan));
-            String lokasi = cursor.getString(cursor.getColumnIndex(DBHelper.row_lokasi));
+            String pegawai = cursor.getString(cursor.getColumnIndex(DBHelper.row_namapegawai));
             String gambar = cursor.getString(cursor.getColumnIndex(DBHelper.row_gambar));
 
             TxTanggal.setText(tanggal);
-            TxWaktu.setText(waktu);
-            spinnerEditKegiatan.getOnItemClickListener();
-
-            if (spinnerEditKegiatan.equals("Sudah selesai")){
-                spinnerEditKeterangan.setSelection(0);
-            } else if (spinnerEditKeterangan.equals("Belum selesai")){
-                spinnerEditKeterangan.setSelection(1);
-            }
-
-            spinnerEditKegiatan.getOnItemClickListener();
+            TxNama.setText(nama);
+            TxKeterangan.setText(keterangan);
 
             if(gambar.equals("null")){
                 imageView.setImageResource(R.drawable.ic_add_photo);
@@ -184,36 +148,35 @@ public class EditActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.save_edit:
                 String tanggal = TxTanggal.getText().toString().trim();
-                String waktu = TxWaktu.getText().toString().trim();
-                String kegiatan = spinnerEditKegiatan.getSelectedItem().toString().trim();
-                String keterangan = spinnerEditKeterangan.getSelectedItem().toString().trim();
-                String lokasi = spinnerEditLokasi.getSelectedItem().toString().trim();
+                String nama = TxNama.getText().toString().trim();
+                String keterangan = TxKeterangan.getText().toString().trim();
+                String pegawai = spinnerEditPegawai.getSelectedItem().toString().trim();
 
                 ContentValues values = new ContentValues();
                 values.put(DBHelper.row_tanggal, tanggal);
-                values.put(DBHelper.row_kegiatan, kegiatan);
+                values.put(DBHelper.row_nama, nama);
                 values.put(DBHelper.row_keterangan, keterangan);
-                values.put(DBHelper.row_lokasi, lokasi);
+                values.put(DBHelper.row_namapegawai, pegawai);
                 values.put(DBHelper.row_gambar, String.valueOf(uri));
 
-                if (tanggal.equals("") || waktu.equals("") || kegiatan.equals("") || keterangan.equals("") || lokasi.equals("")) {
-                    Toast.makeText(EditActivity.this, "Data tidak boleh kosong!", Toast.LENGTH_SHORT).show();
+                if (tanggal.equals("") ||  nama.equals("") || keterangan.equals("") || pegawai.equals("")) {
+                    Toast.makeText(EditActivityBukuTamu.this, "Data tidak boleh kosong!", Toast.LENGTH_SHORT).show();
                 } else {
                     helper.updateData(values, id);
-                    Toast.makeText(EditActivity.this, "Data tersimpan", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditActivityBukuTamu.this, "Data tersimpan", Toast.LENGTH_SHORT).show();
                     finish();
                 }
         }
         switch (item.getItemId()){
             case R.id.delete_edit:
-                AlertDialog.Builder builder = new AlertDialog.Builder(EditActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(EditActivityBukuTamu.this);
                 builder.setMessage("Data ini akan dihapus");
                 builder.setCancelable(true);
                 builder.setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         helper.deleteData(id);
-                        Toast.makeText(EditActivity.this, "Data terhapus!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditActivityBukuTamu.this, "Data terhapus!", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 });
@@ -246,8 +209,11 @@ public class EditActivity extends AppCompatActivity {
         }
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE){
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            imageView.setImageURI(result.getUri());
-            uri = result.getUri();
+            if (resultCode == RESULT_OK){
+                imageView.setImageURI(result.getUri());
+                uri = result.getUri();
+            }
+
         }
     }
 

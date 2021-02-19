@@ -1,4 +1,4 @@
-package com.d3.aplikasilogbook;
+package com.d3.resepsionispdam;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.d3.aplikasilogbook", appContext.getPackageName());
+        assertEquals("com.d3.bukutamu", appContext.getPackageName());
     }
 }

@@ -1,4 +1,4 @@
-package com.d3.aplikasilogbook;
+package com.d3.resepsionispdam;
 
 
 import android.app.Activity;
@@ -18,7 +18,7 @@ public class SplashActivity extends Activity {
                 } catch (InterruptedException e){
                     e.printStackTrace();
                 }finally {
-                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     finish();
                 }
             }
